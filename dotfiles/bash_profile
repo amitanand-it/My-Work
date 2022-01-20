@@ -10,7 +10,7 @@ export PATH
 
 
 export PS1='\u@\h:\w\$ '
-alias gs='git status'
+alias gs='git status -u'
 alias ga='git add'
 alias go='git checkout'
 alias gb='git branch'
