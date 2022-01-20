@@ -1,0 +1,32 @@
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+# Setting PATH for Python 3.9
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
+export PATH
+
+
+export PS1='\u@\h:\w\$ '
+alias gs='git status'
+alias ga='git add'
+alias go='git checkout'
+alias gb='git branch'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gl='git log'
+alias glo='git log --oneline'
+alias glg='git log --graph --oneline --decorate --all'
+alias activate='source ~/env/bin/activate'
+alias ds29='ssh amitanand@14.97.87.86 -p 8229'
+
+# wfh ssh to desktop server 8229 port with port forwarding of development, kibana and gerrit
+alias wfh='/Users/tradeindia/pythonscripts/markattendance.py && ssh amitanand@14.97.87.86 -p 8229  -L 8005:192.168.0.88:8005 -L 9005:192.168.0.11:37596 -L 5601:35.244.54.41:5601 -L 8080:192.168.1.194:8080 ' 
+
+alias psql="psql -Utradein_dev tradein_clients"
+alias startsql="brew services start postgres"
+alias stopsql="brew services stop postgres"
+alias sssql="brew services stop postgres && brew services start postgres "
+alias activate="source ~/env/bin/activate && cd mywork"

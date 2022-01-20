@@ -1,0 +1,14 @@
+
+
+
+set editing-mode vi
+set disable-completion off
+"\C-l":clear-screen
+"\C-p":history-search-backward
+"\C-n":history-search-forward
+"\C-A":beginning-of-line
+"\C-E":end-of-line
+"^[.":yank-last-arg
+
+
+
