@@ -1,0 +1,29 @@
+
+$ brew install postgresql
+
+$ brew services start postgresql
+$ brew services stop  postgresql
+
+# going in to postgres database
+$ psql postgres
+
+To restart postgresql after an upgrade:
+  brew services restart postgresql
+Or, if you don't want/need a background service you can just run:
+  /usr/local/opt/postgresql/bin/postgres -D /usr/local/var/postgres
+tradeindia@TradeIndias-MacBook-Air:~/mywork/sql/question1$ 
+
+--------------------------------------------------------------------------
+To create a new user that will have the privileges to create and manage 
+databases within the service. You can execute the command as follows to 
+create the new user with the right access.
+
+CREATE ROLE newUser WITH LOGIN PASSWORD 'password';
+ALTER ROLE newUser CREATEDB;
+psql -Unewuser postgres
+
+** create database tradein_clients
+
+** psql -Utradein_dev tradein_clients
+
+
