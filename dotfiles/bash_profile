@@ -21,12 +21,22 @@ alias glo='git log --oneline'
 alias glg='git log --graph --oneline --decorate --all'
 alias activate='source ~/env/bin/activate'
 alias ds29='ssh amitanand@14.97.87.86 -p 8229'
-
-# wfh ssh to desktop server 8229 port with port forwarding of development, kibana and gerrit
-alias wfh='/Users/tradeindia/pythonscripts/markattendance.py && ssh amitanand@14.97.87.86 -p 8229  -L 8005:192.168.0.88:8005 -L 9005:192.168.0.11:37596 -L 5601:35.244.54.41:5601 -L 8080:192.168.1.194:8080 ' 
-
 alias psql="psql -Utradein_dev tradein_clients"
 alias startsql="brew services start postgres"
 alias stopsql="brew services stop postgres"
 alias sssql="brew services stop postgres && brew services start postgres "
 alias activate="source ~/env/bin/activate && cd ~/mywork"
+
+
+wfh(){
+
+	# wfh ssh to desktop server 8229 port with port forwarding of development, kibana and gerrit
+	WFH_CMD="ssh amitanand@14.97.87.86 -p 8229  -L 8005:192.168.0.88:8005 -L 9005:192.168.0.11:37596 -L 5601:35.244.54.41:5601 -L 8080:192.168.1.194:8080" 
+
+	if [ `date +"%u"` = 6 ] || [ `date +"%u"` = 7 ]  ; then  
+		eval $WFH_CMD
+	else
+		eval "/Users/tradeindia/pythonscripts/markattendance.py && $WFH_CMD"
+	fi
+
+}
