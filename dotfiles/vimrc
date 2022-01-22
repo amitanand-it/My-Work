@@ -2,11 +2,6 @@
 syntax on
 filetype plugin on
 
-au BufNewFile,BufRead *.py
-\ set tabstop=4 expandtab shiftwidth=4 softtabstop=4
-
-set hlsearch
-
 
 set modeline
 "runtime macros/matchit.vim
