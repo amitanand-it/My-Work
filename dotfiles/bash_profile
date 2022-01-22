@@ -40,3 +40,280 @@ wfh(){
 	fi
 
 }
+
+#############################################################
+#############################################################
+####   Development Utils   ##################################
+#############################################################
+#############################################################
+backup(){
+
+    local FILE=$1
+    if [[ -z "$FILE" ]];then
+            echo -e "\nUsage: backup <file-name>\n"
+            return
+    fi 
+
+    local BKUP_FILE=$FILE.$(date "+%F").bak
+    local CMD="cp $FILE $BKUP_FILE"
+
+    eval $CMD
+
+    if [ $? == 0 ] ; then
+        echo "File Backed Up with name : $BKUP_FILE"
+        return
+    fi
+
+    echo -e "Backed Up Failed:\nCommand is : $CMD" 
+}
+
+dotfiles-backup(){
+    local BKUP_FILE=dotfiles.$(date "+%F").tar
+    tar cvf $BKUP_FILE .bash_profile .bashrc .inputrc .bash_aliases .bash_utilities .proxy_config .byobu_utilities   
+    echo "A dotfiles tar has been created with name : $BKUP_FILE"
+}
+
+
+# searching for file using regex
+fn() {
+   local KW=$1;shift
+   KW=$(sed 's/*/.*/g' <<< $KW)
+   local FILTER_PART=$@
+   local CMD="find . -type f 2>/dev/null | grep -ie $KW\\$"
+   if [[ $@ ]];then
+       local extra=$(echo \| grep -ie $(sed -e 's/\s\+/ | grep -ie /g' <<< $FILTER_PART))
+       CMD="$CMD $extra"
+   fi
+   eval $CMD
+}
+
+
+minimize_js() {
+
+  RAW_FILE=$1
+  MIN_FILE=$2
+
+    if [[ -z "$RAW_FILE"  ||  -z "$MIN_FILE" ]];then
+          echo
+          echo "Usage: minimize_js <RAW-FILE-NAME> <MIN-FILE-NAME>";
+          echo
+    else
+          $(java -jar /usr/local/bin/yuicompressor-2.4.7.jar  $RAW_FILE > $MIN_FILE) 
+    fi
+
+}
+
+get_table_names(){
+    local TN=$1 
+    if [[ -z "$TN"  ]]; then
+          echo -e "\nUsage: get_table_names <TABLE_NAME_HINT>\n"
+    else      
+# you can write multiple commands using HERE document
+          psql <<-QUERIES
+          SELECT table_schema,table_name FROM information_schema.tables WHERE table_name ilike '%$TN%';
+QUERIES
+
+    fi
+}
+
+
+#############################################################
+#############################################################
+####   Git Utils   ##################################
+#############################################################
+#############################################################
+#############################################################
+
+
+# searching for file using regex in git status result
+ffn(){
+   local KW=$1;shift
+   KW=$(sed 's/*/.*/g' <<< $KW)
+   local FILTER_PART=$@
+   local CMD="git status -u -s | grep -ie $KW\\$ | awk '{print \$NF}'"
+   if [[ $@ ]];then
+       local extra=$(echo \| grep -ie $(sed -e 's/\s\+/ | grep -ie /g' <<< $FILTER_PART))
+       CMD="$CMD $extra"
+   fi
+   eval $CMD
+}
+
+gitbackup(){
+    local REPO=$(basename "$PWD")
+    git status -u -s | awk '{print $2}' | xargs tar cvf ~/$REPO-`date +%F`.tar 
+}
+
+#####################################################
+#to see last commit files after sending to review
+#####################################################
+gitlcf() {
+  echo ==========   CHANGE FILES =====================
+  local COMMIT_ID=$1
+  if [ -z "$COMMIT_ID" ];then
+      git log -1 --pretty=format:%H | xargs  git diff-tree --pretty=short  --name-status  -r
+  else
+      git diff-tree --pretty=short  --name-status  -r $COMMIT_ID
+  fi
+  echo =============================================
+}
+
+git-ignored(){
+    git ls-files -v | grep '^[[:lower:]]'
+}
+git-ignore(){
+    local FILE=$1
+    if [[ -z $FILE ]]; then
+         echo
+         echo "Usage: git-ignore <FILE-TO-IGNORE>";
+         echo
+         return
+    fi
+
+    git update-index --assume-unchanged $FILE
+    git ls-files -v | grep '^[[:lower:]]'
+}
+
+git-unignore(){
+    local FILE=$1
+    if [[ -z $FILE ]]; then
+         echo
+         echo "Usage: git-unignore <FILE-TO-UNIGNORE>";
+         echo
+         return
+    fi
+    git update-index --no-assume-unchanged $FILE
+}
+
+
+get-unreachable-stash-commits(){
+    git fsck --unreachable | grep commit | cut -d\  -f3 | xargs git log --merges --no-walk 
+    # To fix unreachable stashes
+    # git stash store -m 'stash name' commit-id
+}
+
+gitlog_follow_file() {
+   local FILE=$1
+   git log --pretty=format:"%h - %an, %ar : %s"  --follow $FILE
+}
+
+gitundo-commit(){
+  git reset --soft HEAD~1
+}
+
+gitstash() {
+    local STASH_NAME=$1
+    if [[ -z $STASH_NAME ]]; then
+         echo
+         echo "Usage: gitstash <stash-name>";
+         echo
+     else
+         # -u indicates --include-untracked
+         git stash save -u $STASH_NAME 
+     fi 
+}
+
+gitdiff-file() {
+    local COMMIT1=$1
+    local COMMIT2=$2
+    local FILE=$1
+    if [[ -z "$COMMIT1"  || -z "$COMMIT2" || -z "$FILE" ]];then
+            echo
+            echo "Usage: gitdiff_file <commit-id1> <commit-id2> <filename>";
+            echo "To find the commit-ids use command: gitlog_file_changes <filename>";
+            echo "This command will give commit-ids in descending order." 
+            echo "Please give commit-ids to gitdiff_file command in sequence in which changes committed."
+            echo
+    else
+            git diff  $COMMIT1 $COMMIT2  $FILE
+    fi
+}
+
+gitlog-file-changes(){
+    local FILE=$1
+    if [ -z "$FILE" ];then
+            echo "Usage: gitlog_file_changes <filename>";
+    else
+            git log --pretty=oneline $FILE
+    fi
+}
+
+#####################################################
+#to search commits by contents 
+#####################################################
+gitlog-findby-content(){
+    local INPUT=$1
+    git log -S${INPUT} --oneline 
+}
+
+
+
+
+#####################################################
+#to search commits using subject
+#####################################################
+gitlog-findby-subject(){
+    local INPUT=$1
+    git log --oneline --grep="$INPUT" -i
+}
+
+
+pull_patch () 
+{ 
+    local patch=$1;
+    if ! [ $patch ]; then
+        echo '[USAGE] pull_patch  <patch ref>';
+        return 0;
+    fi;
+    echo "############################################";
+    echo "Git reseting to origin/master ...";
+    local cmd1="git reset --hard origin/master";
+    eval $cmd1;
+    echo "############################################";
+    echo "Now pulling patch : $patch ...";
+    local cmd2="git pull ssh://amitanand@gerrit.tradeindia.com:29418/ti-django $patch";
+    eval $cmd2;
+    echo "############################################";
+    echo "Now unwrapping files in the folder : $patch ...";
+    local cmd3='git reset --soft HEAD~';
+    eval $cmd3;
+    echo "############################################";
+    local GITREPO='/home/amitanand/ti-django';
+    sed -i '/\bseller_profile\b/{s:^:#:}' $GITREPO/tradeindia/tradeindia/urls.py;
+    sed -i "s:Conf.STATIC_SERVER:'/static':" $GITREPO/tradeindia/tradeindia/ti_custom_variables.py;
+    echo "############################################";
+    echo "Now starting servers";
+    echo "Apache2 restart complete ... (OK) ";
+    echo "############################################";
+    local cmd7='git status';
+    eval $cmd7
+}
+
+
+add_patch ()
+{
+    local patch=$1;
+    if ! [ $patch ]; then
+        echo '[USAGE] add_patch <patch ref>';
+        return 0;
+    fi; 
+    echo "############################################";
+    echo "Now Adding patch : $patch ...";
+    local cmd1="git fetch ssh://amitanand@gerrit.tradeindia.com:29418/ti-django $patch && git format-patch -1 --stdout FETCH_HEAD > patchfile";
+    eval $cmd1;
+    local cmd2="git apply --3way --ignore-space-change --ignore-whitespace patchfile";
+    eval $cmd2;
+    local cmd3="rm patchfile";
+    eval $cmd3
+}
+
+
+parse_git_branch() {
+         git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(*\1)/'
+}
+
+
+
+
+
+
+
