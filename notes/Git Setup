@@ -1,0 +1,56 @@
+
+1) Go in to main folder to track versions of your files
+
+2) git init
+
+3) git --version
+
+4) git config -l
+  credential.helper=osxkeychain
+  user.email=amit.a@tradeindia.com
+  user.name=amit anand
+  core.repositoryformatversion=0
+  core.filemode=true
+  core.bare=false
+  core.logallrefupdates=true
+  core.ignorecase=true
+  core.precomposeunicode=true
+  
+5) git remote -v
+
+6) If no remote found
+	git remote add origin git@github.com:amitanand-it/My-Work.git
+  
+7) git config --global user.email amit.a@tradeindia.com
+   git config --global user.name "Amit Anand"
+   git config --global core.editor "code"
+   
+8) git push -u origin master (setting upstream)
+	
+	
+	
+	
+Auto Completion Git Commands
+---------------------------------------------------------------------------------------------------------------------------------------
+Download the necessary script to your Mac by using the following curl command:
+
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+
+Add the following line to the ~/.bash_profile file:
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+
+Make the Bash script executable by running the following command:
+
+chmod +x ~/.git-completion.bash
+
+
+
+Restart your Terminal application or run the following command:
+source ~/.bash_profile
+
+
+Git tab autocomplete is now enabled on your Mac.

@@ -8,7 +8,5 @@ set disable-completion off
 "\C-n":history-search-forward
 "\C-A":beginning-of-line
 "\C-E":end-of-line
-"^[.":yank-last-arg
-
-
+#"^[.":yank-last-arg
 
