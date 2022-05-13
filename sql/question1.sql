@@ -20,6 +20,42 @@ insert into users values
 
 select * from users;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Solution 1:
 
 -- Replace ctid with rowid for Oracle, MySQL and Microsoft SQLServer
