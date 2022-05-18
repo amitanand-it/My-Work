@@ -59,3 +59,5 @@ text = """Some people, when confronted with a problem, think
 print(text)
 print(' '.join((map(remove_punctuation, text.split()))))
 
+
+

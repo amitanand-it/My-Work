@@ -1,9 +1,12 @@
 """
-
-A mixin is a class that provides method implementations for reuse by multiple related child classes. However, the inheritance is not implying an is-a relationship.
-A mixin doesn’t define a new type. Therefore, it is not intended for direction instantiation.
-A mixin bundles a set of methods for reuse. Each mixin should have a single specific behavior, implementing closely related methods.
-
+A mixin is a class that provides method implementations for 
+reuse by multiple related child classes. 
+However, the inheritance is not implying an is-a relationship.
+A mixin doesn’t define a new type. Therefore, it is not intended 
+for direction instantiation.
+A mixin bundles a set of methods for reuse. 
+Each mixin should have a single specific behavior, 
+implementing closely related methods.
 """
 
 import json

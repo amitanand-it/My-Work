@@ -22,6 +22,7 @@ alias glg='git log --graph --oneline --decorate --all'
 alias activate='source ~/env/bin/activate'
 alias ds29='ssh amitanand@14.97.87.86 -p 8229'
 alias psql="psql -Utradein_dev tradein_clients"
+alias psqlserver='/usr/local/opt/postgresql/bin/postgres -D /usr/local/var/postgres'
 alias startsql="brew services start postgres"
 alias stopsql="brew services stop postgres"
 alias sssql="brew services stop postgres && brew services start postgres "
