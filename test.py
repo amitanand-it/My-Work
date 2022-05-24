@@ -1,4 +1,5 @@
 #!/usr/local/bin/python3.10
+
 import sys
 
 def func(*args, **kwargs):

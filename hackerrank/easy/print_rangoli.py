@@ -17,13 +17,19 @@ c-b-a-b-c      ----e-d-c-d-e----
 def print_rangoli(size):
     # your code goes here
     alphabets = 'abcdefghijklmnopqrstuvwxyz'
-    letters = alphabets[:size]
-    print(letters)
+    s = alphabets[:size][::-1]
+    for i in range(1, 2*size):
+        if i <= size:
+            print( '--'* (size - i) + '-'.join(list(s[:i])  + list(s[:i-1][::-1])) + '--'* (size-i))
+        else:
+            j = size - (i - size) 
+            print( '--'* (size - j) + '-'.join(list(s[:j] + s[:j-1][::-1])) + '--'* (size-j))
+
 
 
 
 
 if __name__ == '__main__':
 #    n = int(input())
-    print_rangoli(3)
+    print_rangoli(10)
 

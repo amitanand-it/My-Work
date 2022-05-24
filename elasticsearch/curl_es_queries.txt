@@ -1,0 +1,2 @@
+
+curl 10.1.4.63:9200/ti_search_logstash_*/_search
