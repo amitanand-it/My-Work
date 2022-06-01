@@ -1,0 +1,44 @@
+
+1) split a name on space and get the first name
+2) Write an SQL query to find the count of the total occurrences of a particular character – ‘n’ in the FullName field.
+SELECT FullName, 
+LENGTH(FullName) - LENGTH(REPLACE(FullName, 'n', ''))
+FROM EmployeeDetails;
+
+3) Write an SQL query to remove duplicates from a table without using a temporary table.
+DELETE E1 FROM EmployeeDetails E1
+INNER JOIN EmployeeDetails E2 
+WHERE E1.EmpId > E2.EmpId 
+AND E1.FullName = E2.FullName 
+AND E1.ManagerId = E2.ManagerId
+AND E1.DateOfJoining = E2.DateOfJoining
+AND E1.City = E2.City;
+
+4) Write an SQL query to fetch duplicate records from EmployeeDetails (without considering the primary key – EmpId).
+SELECT FullName, ManagerId, DateOfJoining, City, COUNT(*)
+FROM EmployeeDetails
+GROUP BY FullName, ManagerId, DateOfJoining, City
+HAVING COUNT(*) > 1;
+
+
+5) Write an SQL query to fetch only odd rows from the table.
+
+select * from employee where emp_id % 2 = 0 order by emp_id 
+
+--WITHOUT USING EMP_ID 
+select * from (select *, row_number() over() row from employee) foo  where row%2 =0 ;
+
+6) Write an SQL query to find the nth(10th) highest salary from table.
+select distinct salary from employee order by 1 desc limit 1 offset 9;  
+
+7) Write SQL query to find the 3rd highest salary from a table without using the TOP/limit keyword.
+select * from (select  distinct salary, dense_rank() over(order by salary) rank from employee) foo where rank = 3;
+
+select * from (select distinct salary, (select count(distinct salary)+1  from employee where salary > e1.salary ) as rank  from employee e1 order by 2 ) as foo where foo.rank= 3;
+
+8) transaction table has 5 columns (transaction_id, customer_id, transation_date, product_id, transaction_amount)
+product table has 2 columns (product_id, product_name)
+
+Write query to fetch customer id, first transaction date, last transaction date, the difference in transaction amount, and difference in transaction date
+
+select customer_id,min(transation_date), max(transation_date), max(transaction_amount)-min(transaction_amount), max(transation_date) - min(transation_date)  from transaction group by 1 order by 1 ;
