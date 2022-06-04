@@ -1,0 +1,100 @@
+1. How will you make a class immutable ?
+a) Initalized only define variables 
+b) their values should not be changed 
+
+2. Difference between tuples and list ?
+a) Memory wise
+b) structure wise.
+
+3. Difference betwee iterator and generator ?
+
+4. Singleton class ?
+
+5. What are closures ?
+
+6. Name some modules for debugging in python?
+
+7. Difference between local variables and nonlocal variables in python ?
+
+8. a) Insert a list as a single element in tuple 
+   b) Now insert more elements to that list.
+   Why we can add more elements in the list if tuples are
+    immutable in nature.
+
+9. Name all dunder methods related to 
+    a) dictionary
+    b) list
+    c) class objects
+
+10. What is a context manager ?
+how you can create and use your own context manager 
+
+11. What is a decorator ? 
+a) decorator with parameters
+b) decorator without parameters
+c) decorator call orders if multiple decorators have been used
+
+12. How to use multithreading in python ?
+
+13. what is __slot__ in python ?
+
+14. Python regex
+a) Difference between match and search ?
+b) Difference between findall and finditer ?
+c) For a pattern,  is it mandatory to use "r" in the beginning ?
+    example: r"\d+"
+d) What is match object ?
+
+15. a) what is a pip ?
+    b) Difference between pip list and pip freeze ?
+    c) List, Remove and add modules.
+
+16. What are available functions in itertools
+    a) groupby
+    b) accumulate
+    c) chain
+    d) combinations
+    e) combinations_with_replacement
+    f) compress 
+    g) count
+    e) cycle
+    f) product
+    g) repeat 
+    h) islice
+    g) permutations
+
+17. In python regex what is follower terms below:
+    a) positive lookbehind assertion : (?<=sometext)
+    b) lookahead assertion : (?=sometext)
+    c) {m,n}? 
+    
+18. What is the functionality of below flags in regex ?
+    a) re.A (re.ASCII)
+    b) re.I (re.IGNORECASE)
+    c) re.L (re.LOCALE)
+    d) re.M (re.MULTILINE)
+    e) re.S (re.DOTALL)
+    f) re.X (re.VERBOSE)
+    g) re.U 
+
+19. What is the functionality of below functions in regex ?
+    a) re.compile(pattern, flags=0)
+    b) re.search(pattern, string, flags=0)
+    c) re.match(pattern, string, flags=0)
+    d) re.fullmatch(pattern, string, flags=0)
+    e) re.split(pattern, string, maxsplit=0, flags=0)
+    f) re.findall(pattern, string, flags=0)
+    g) re.finditer(pattern, string, flags=0)
+    h) re.sub(pattern, repl, string, count=0, flags=0)
+    i) 
+20. What is string.ascii_lowercase and string.digits ?
+
+21. Can we use ++ unary operator in python ? 
+    For example ++a or a++
+    The a++ is giving error , Why?
+    and ++a is not giving error, Why?
+    what is the output of below code ?
+    a = 1
+    print(++a)
+
+
