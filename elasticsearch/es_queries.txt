@@ -1,0 +1,1835 @@
+GET _cat/indices
+
+
+GET ti_search_logstash_20220607/_search
+
+
+GET ti_search_logstash_20220530/_search
+{
+  "size": 0,
+  "aggs": {
+    "TEMP": {
+      "": {
+        "field": "source",
+        "size": 100
+      }
+    }
+  }
+}
+
+GET ti_search_logstash_20220530/_search
+{
+  "query": {
+    "range": {
+      "product_id": {
+        "gte":"3585941",
+        "lte": "3585942", 
+        "boost": 3
+      }
+    }
+  },
+  "_source": [
+    "product_id",
+    "product_name"
+  ],
+  "size": 20
+}
+
+GET ti_search_logstash_20220615/_search
+{
+  "query": {
+    "term": {
+      "product_id": {
+        "value":"4325566",
+        "boost": 3
+      }
+    }
+  },
+  "_source": [
+    "product_id",
+    "product_name",
+    "*"
+  ],
+  "size": 20
+}
+
+
+GET ti_search_logstash_20220530/_search
+{
+  "query": {
+    "match": {
+      "product_name": "The great india"
+    }
+  },
+  "_source": [
+    "product_id",
+    "product_name"
+  ],
+  "size": 20
+}
+
+
+GET ti_search_logstash_20220530/_search
+{
+  "query": {
+    "match": {
+      "product_name": {
+        "query": "chemical tiles work",
+        "operator": "and"
+      }
+    }
+  },
+   "_source": [
+    "product_id",
+    "product_name"
+  ],
+  "size": 20
+}
+
+
+GET ti_search_logstash_20220530/_search
+{
+  "query": {
+    "match": {
+      "product_name": {
+        "query": "chemical tiles",
+        "fuzziness": "auto"
+      }
+    }
+  },
+   "_source": [
+    "product_id",
+    "product_name"
+  ],
+  "size": 20
+}
+
+DELETE /ti_test_index_20220331
+
+GET ti_search_logstash_20220330/_search
+{
+    "query": {
+        "bool": {
+            "should": [
+                {
+                    "bool": {
+                        "must": [
+                            {
+                                "bool": {
+                                    "should": [
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "query": "veterinary injections",
+                                                            "fields": [
+                                                                "keywords",
+                                                                "keywords.eng"
+                                                            ],
+                                                            "type": "phrase",
+                                                            "operator": "AND"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "keywords.comma_as_xxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ],
+                                                "boost": 10
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "type": "phrase",
+                                                            "operator": "AND",
+                                                            "fields": [
+                                                                "prod_exp",
+                                                                "prod_exp.eng"
+                                                            ],
+                                                            "query": "veterinary injections"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "prod_exp.comma_as_xxxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "type": "phrase",
+                                                            "operator": "AND",
+                                                            "fields": [
+                                                                "prod_manu",
+                                                                "prod_manu.eng"
+                                                            ],
+                                                            "query": "veterinary injections"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "prod_manu.comma_as_xxxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "type": "phrase",
+                                                            "operator": "AND",
+                                                            "fields": [
+                                                                "prod_serv",
+                                                                "prod_serv.eng"
+                                                            ],
+                                                            "query": "veterinary injections"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "prod_serv.comma_as_xxxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "type": "phrase",
+                                                            "operator": "AND",
+                                                            "fields": [
+                                                                "prod_supplier",
+                                                                "prod_supplier.eng"
+                                                            ],
+                                                            "query": "veterinary injections"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "prod_supplier.comma_as_xxxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "type": "phrase",
+                                                            "operator": "AND",
+                                                            "fields": [
+                                                                "prod_distributor",
+                                                                "prod_distributor.eng"
+                                                            ],
+                                                            "query": "veterinary injections"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "prod_distributor.comma_as_xxxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "multi_match": {
+                                                            "type": "phrase",
+                                                            "operator": "AND",
+                                                            "fields": [
+                                                                "prod_trader",
+                                                                "prod_trader.eng"
+                                                            ],
+                                                            "query": "veterinary injections"
+                                                        }
+                                                    },
+                                                    {
+                                                        "match_phrase": {
+                                                            "prod_trader.comma_as_xxxx": "veterinary injections XXXX"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "bool": {
+                                    "should": [
+                                        {
+                                            "match_phrase": {
+                                                "prod_exp.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match_phrase": {
+                                                "prod_manu.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match_phrase": {
+                                                "prod_serv.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match_phrase": {
+                                                "prod_supplier.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match_phrase": {
+                                                "prod_distributor.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match_phrase": {
+                                                "prod_trader.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match_phrase": {
+                                                "keywords.eng": {
+                                                    "query": "veterinary injections",
+                                                    "slop": 2,
+                                                    "boost": 10
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "bool": {
+                                    "should": [
+                                        {
+                                            "bool": {
+                                                "must": [
+                                                    {
+                                                        "bool": {
+                                                            "should": [
+                                                                {
+                                                                    "match": {
+                                                                        "product_name.eng": {
+                                                                            "operator": "and",
+                                                                            "query": "veterinary injections"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "match": {
+                                                                        "keywords.eng": {
+                                                                            "operator": "and",
+                                                                            "query": "veterinary injections"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "bool": {
+                                                            "should": [
+                                                                {
+                                                                    "match": {
+                                                                        "product_name_last_word.eng": {
+                                                                            "query": "injections"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "term": {
+                                                            "is_product_record": 1
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "match": {
+                                                "keywords.eng": {
+                                                    "operator": "and",
+                                                    "query": "veterinary injections"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "match": {
+                                                "keywords_exact.keyword": {
+                                                    "operator": "and",
+                                                    "query": "veterinary injections"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "is_product_record": 0
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "term": {
+                        "keywords_exact.keyword": {
+                            "value": "veterinary injections",
+                            "boost": 20
+                        }
+                    }
+                },
+                {
+                    "bool": {
+                        "should": [
+                            {
+                                "bool": {
+                                    "must": [
+                                        {
+                                            "bool": {
+                                                "should": [
+                                                    {
+                                                        "match": {
+                                                            "product_name.eng": {
+                                                                "operator": "and",
+                                                                "query": "veterinary injections"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "match": {
+                                                            "keywords.eng": {
+                                                                "operator": "and",
+                                                                "query": "veterinary injections"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "bool": {
+                                                "should": [
+                                                    {
+                                                        "match": {
+                                                            "product_name_last_word.eng": {
+                                                                "query": "injections"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "must_not": [
+                            {
+                                "match": {
+                                    "product_name.eng": "Machine"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "match": {
+                        "co_name": {
+                            "query": "veterinary injections",
+                            "operator": "and",
+                            "boost": 20
+                        }
+                    }
+                },
+                {
+                    "bool": {
+                        "must": [
+                            {
+                                "nested": {
+                                    "path": "hstore_product_n_specification_data",
+                                    "query": {
+                                        "bool": {
+                                            "must": [
+                                                {
+                                                    "term": {
+                                                        "hstore_product_n_specification_data.field": "brand name"
+                                                    }
+                                                },
+                                                {
+                                                    "terms": {
+                                                        "hstore_product_n_specification_data.field_value": [
+                                                            "veterinary injections"
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "filter": [
+                {
+                    "bool": {
+                        "must": [
+                            {
+                                "bool": {
+                                    "should": [
+                                        {
+                                            "term": {
+                                                "exp": true
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "manu": true
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "sp": true
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "supp": true
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "dist": true
+                                            }
+                                        },
+                                        {
+                                            "term": {
+                                                "trader": true
+                                            }
+                                        },
+                                        {
+                                            "exists": {
+                                                "field": "product_id",
+                                                "boost": 10
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "must_not": [
+                            {
+                                "terms": {
+                                    "profile_id": [
+                                        10756892,
+                                        2707378,
+                                        8667288
+                                    ]
+                                }
+                            },
+                            {
+                                "term": {
+                                    "ad_type": "buy"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "minimum_should_match": 1
+        }
+    },
+    "aggs": {
+        "profile_count": {
+            "cardinality": {
+                "field": "profile_id"
+            }
+        }
+    },
+    "sort": [
+        {
+            "is_product_record": {
+                "order": "desc"
+            }
+        },
+        {
+            "super_bonanza_seller_package": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "boolean"
+            }
+        },
+        {
+            "super_premium_seller_package": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "boolean"
+            }
+        },
+        {
+            "super_seller_package": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "boolean"
+            }
+        },
+        {
+            "amount": {
+                "missing": "_last",
+                "order": "desc"
+            }
+        },
+        {
+            "ifpaid": {
+                "missing": "_last",
+                "order": "desc"
+            }
+        },
+        {
+            "number_mask": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "boolean"
+            }
+        },
+        {
+            "last_verified": {
+                "order": "desc",
+                "missing": "_last"
+            }
+        },
+        {
+            "product_score": {
+                "missing": "_last",
+                "order": "desc"
+            }
+        },
+        {
+            "source.keyword": {
+                "order": "asc"
+            }
+        },
+        {
+            "ua_buyer_feedback": {
+                "order": "desc",
+                "missing": "_last"
+            }
+        },
+        {
+            "min_price_range": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "float"
+            }
+        },
+        {
+            "max_price_range": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "float"
+            }
+        },
+        {
+            "price_es": {
+                "order": "desc",
+                "missing": "_last",
+                "unmapped_type": "float"
+            }
+        },
+        {
+            "_score": "desc"
+        }
+    ],
+    "collapse": {
+    "field": "profile_id",
+    "inner_hits": {
+      "name":"product_id",
+      "size":1,
+      "sort":[{"generated":"desc"}]
+    }
+  },
+    "track_scores": true,
+    "from": 0,
+    "size": 29,
+    "_source": [
+        "profile_id",
+        "userid",
+        "amount",
+        "ifpaid",
+        "source",
+        "category_id",
+        "product_id",
+        "co_name",
+        "hosting_keywords",
+        "orig_hosting_kw",
+        "keywords",
+        "is_product_record",
+        "size",
+        "source.keyword",
+        "prod_exp",
+        "prod_manu",
+        "prod_supplier",
+        "prod_distributor",
+        "export_keywords",
+        "custom_field_data_meta_info",
+        "last_verified",
+        "city",
+        "city_id",
+        "business_kw_id",
+        "business_kws",
+        "has_custom_fields",
+        "has_trust_stamp",
+        "super_seller",
+        "super_bonanza_seller",
+        "super_bonanza_seller_b",
+        "super_premium_seller",
+        "premium_seller",
+        "country_name",
+        "default_email",
+        "default_mobile",
+        "ua_buyer_feedback",
+        "ua_hide_buyer_feedback",
+        "ua_show_buyer_feedback",
+        "price_es",
+        "max_price_range",
+        "min_price_range",
+        "currency",
+        "price",
+        "price_range",
+        "super_seller_package",
+        "super_bonanza_seller_package",
+        "super_premium_seller_package",
+        "initial_co_name",
+        "member_since",
+        "number_mask",
+        "estd",
+        "address",
+        "hide_rfis_rate",
+        "dont_show_send_others",
+        "ifmanu",
+        "ifexporter",
+        "ifservice",
+        "ifdistributor",
+        "ifsupplier",
+        "iftrader",
+        "product_type",
+        "pic_ver",
+        "short_product_spec",
+        "extra_product_spec",
+        "extra_similar_products",
+        "video_path",
+        "product_description",
+        "image_extension",
+        "product_name",
+        "rfis_rate",
+        "std_cert",
+        "state",
+        "extra_catalog_urls",
+        "inq_orig_pref",
+        "filename",
+        "prod_url",
+        "state",
+        "state.keyword",
+        "country_code",
+        "country_code.keyword",
+        "catalog_id",
+        "seller_onboard_url",
+        "made_in_india",
+        "ubona",
+        "video_call",
+        "jetro",
+        "ti_shopping",
+        "margin_percentage",
+        "whatsapp_optin",
+        "in_stock"
+    ],
+    "highlight": {
+        "fields": {
+            "prod_exp": {},
+            "prod_manu": {},
+            "prod_serv": {},
+            "prod_supplier": {},
+            "prod_distributor": {},
+            "prod_trader": {},
+            "keywords": {},
+            "keywords.eng": {},
+            "keywords.comma_as_xxxx": {
+                "fragmenter": "span"
+            },
+            "prod_exp.comma_as_xxxx": {
+                "fragmenter": "span"
+            },
+            "prod_distributor.comma_as_xxxx": {
+                "fragmenter": "span"
+            },
+            "prod_supplier.comma_as_xxxx": {
+                "fragmenter": "span"
+            },
+            "prod_trader.comma_as_xxxx": {
+                "fragmenter": "span"
+            },
+            "prod_imp.comma_as_xxxx": {
+                "fragmenter": "span"
+            },
+            "prod_serv.comma_as_xxxx": {
+                "fragmenter": "span"
+            }
+        }
+    }
+}
+
+
+GET ti_search_logstash_20220330/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "query": "veterinary bolus",
+                              "fields": [
+                                "keywords",
+                                "keywords.eng"
+                              ],
+                              "type": "phrase",
+                              "operator": "AND"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "keywords.comma_as_xxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ],
+                        "boost": 10
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "type": "phrase",
+                              "operator": "AND",
+                              "fields": [
+                                "prod_exp",
+                                "prod_exp.eng"
+                              ],
+                              "query": "veterinary bolus"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "prod_exp.comma_as_xxxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "type": "phrase",
+                              "operator": "AND",
+                              "fields": [
+                                "prod_manu",
+                                "prod_manu.eng"
+                              ],
+                              "query": "veterinary bolus"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "prod_manu.comma_as_xxxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "type": "phrase",
+                              "operator": "AND",
+                              "fields": [
+                                "prod_serv",
+                                "prod_serv.eng"
+                              ],
+                              "query": "veterinary bolus"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "prod_serv.comma_as_xxxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "type": "phrase",
+                              "operator": "AND",
+                              "fields": [
+                                "prod_supplier",
+                                "prod_supplier.eng"
+                              ],
+                              "query": "veterinary bolus"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "prod_supplier.comma_as_xxxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "type": "phrase",
+                              "operator": "AND",
+                              "fields": [
+                                "prod_distributor",
+                                "prod_distributor.eng"
+                              ],
+                              "query": "veterinary bolus"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "prod_distributor.comma_as_xxxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "multi_match": {
+                              "type": "phrase",
+                              "operator": "AND",
+                              "fields": [
+                                "prod_trader",
+                                "prod_trader.eng"
+                              ],
+                              "query": "veterinary bolus"
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "prod_trader.comma_as_xxxx": "veterinary bolus XXXX"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "match_phrase": {
+                        "prod_exp.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "prod_manu.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "prod_serv.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "prod_supplier.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "prod_distributor.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "prod_trader.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2
+                        }
+                      }
+                    },
+                    {
+                      "match_phrase": {
+                        "keywords.eng": {
+                          "query": "veterinary bolus",
+                          "slop": 2,
+                          "boost": 10
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "must": [
+                          {
+                            "bool": {
+                              "should": [
+                                {
+                                  "match": {
+                                    "product_name.eng": {
+                                      "operator": "and",
+                                      "query": "veterinary bolus"
+                                    }
+                                  }
+                                },
+                                {
+                                  "match": {
+                                    "keywords.eng": {
+                                      "operator": "and",
+                                      "query": "veterinary bolus"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "bool": {
+                              "should": [
+                                {
+                                  "match": {
+                                    "product_name_last_word.eng": {
+                                      "query": "bolus"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "term": {
+                              "is_product_record": 1
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "match": {
+                        "keywords.eng": {
+                          "operator": "and",
+                          "query": "veterinary bolus"
+                        }
+                      }
+                    },
+                    {
+                      "match": {
+                        "keywords_exact.keyword": {
+                          "operator": "and",
+                          "query": "veterinary bolus"
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "is_product_record": 0
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "term": {
+            "keywords_exact.keyword": {
+              "value": "veterinary bolus",
+              "boost": 20
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match": {
+                              "product_name.eng": {
+                                "operator": "and",
+                                "query": "veterinary bolus"
+                              }
+                            }
+                          },
+                          {
+                            "match": {
+                              "keywords.eng": {
+                                "operator": "and",
+                                "query": "veterinary bolus"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match": {
+                              "product_name_last_word.eng": {
+                                "query": "bolus"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "match": {
+                  "product_name.eng": "Machine"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "match": {
+            "co_name": {
+              "query": "veterinary bolus",
+              "operator": "and",
+              "boost": 20
+            }
+          }
+        },
+        {
+          "bool": {
+            "must": [
+              {
+                "nested": {
+                  "path": "hstore_product_n_specification_data",
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "term": {
+                            "hstore_product_n_specification_data.field": "brand name"
+                          }
+                        },
+                        {
+                          "terms": {
+                            "hstore_product_n_specification_data.field_value": [
+                              "veterinary bolus"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "filter": [
+        {
+          "bool": {
+            "must": [
+              {
+                "bool": {
+                  "should": [
+                    {
+                      "term": {
+                        "exp": true
+                      }
+                    },
+                    {
+                      "term": {
+                        "manu": true
+                      }
+                    },
+                    {
+                      "term": {
+                        "sp": true
+                      }
+                    },
+                    {
+                      "term": {
+                        "supp": true
+                      }
+                    },
+                    {
+                      "term": {
+                        "dist": true
+                      }
+                    },
+                    {
+                      "term": {
+                        "trader": true
+                      }
+                    },
+                    {
+                      "exists": {
+                        "field": "product_id",
+                        "boost": 10
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "must_not": [
+              {
+                "term": {
+                  "ad_type": "buy"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "minimum_should_match": 1
+    }
+  },
+  "aggs": {
+    "profile_count": {
+      "cardinality": {
+        "field": "profile_id"
+      }
+    }
+  },
+  "sort": [
+    {
+      "is_product_record": {
+        "order": "desc"
+      }
+    },
+    {
+      "super_bonanza_seller_package": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "boolean"
+      }
+    },
+    {
+      "super_premium_seller_package": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "boolean"
+      }
+    },
+    {
+      "super_seller_package": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "boolean"
+      }
+    },
+    {
+      "amount": {
+        "missing": "_last",
+        "order": "desc"
+      }
+    },
+    {
+      "ifpaid": {
+        "missing": "_last",
+        "order": "desc"
+      }
+    },
+    {
+      "number_mask": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "boolean"
+      }
+    },
+    {
+      "last_verified": {
+        "order": "desc",
+        "missing": "_last"
+      }
+    },
+    {
+      "product_score": {
+        "missing": "_last",
+        "order": "desc"
+      }
+    },
+    {
+      "source.keyword": {
+        "order": "asc"
+      }
+    },
+    {
+      "ua_buyer_feedback": {
+        "order": "desc",
+        "missing": "_last"
+      }
+    },
+    {
+      "min_price_range": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "float"
+      }
+    },
+    {
+      "max_price_range": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "float"
+      }
+    },
+    {
+      "price_es": {
+        "order": "desc",
+        "missing": "_last",
+        "unmapped_type": "float"
+      }
+    },
+    {
+      "_score": "desc"
+    }
+  ],
+  "collapse": {
+    "field": "profile_id",
+    "inner_hits": {
+      "name":"product_id",
+      "size":1,
+      "sort":[{"generated":"desc"}]
+    }
+  },
+  "track_scores": true,
+  "from": 0,
+  "size": 1,
+  "_source": [
+    "profile_id",
+    "userid",
+    "amount",
+    "ifpaid",
+    "source",
+    "category_id",
+    "product_id",
+    "co_name",
+    "hosting_keywords",
+    "orig_hosting_kw",
+    "keywords",
+    "is_product_record",
+    "size",
+    "source.keyword",
+    "prod_exp",
+    "prod_manu",
+    "prod_supplier",
+    "prod_distributor",
+    "export_keywords",
+    "custom_field_data_meta_info",
+    "last_verified",
+    "city",
+    "city_id",
+    "business_kw_id",
+    "business_kws",
+    "has_custom_fields",
+    "has_trust_stamp",
+    "super_seller",
+    "super_bonanza_seller",
+    "super_bonanza_seller_b",
+    "super_premium_seller",
+    "premium_seller",
+    "country_name",
+    "default_email",
+    "default_mobile",
+    "ua_buyer_feedback",
+    "ua_hide_buyer_feedback",
+    "ua_show_buyer_feedback",
+    "price_es",
+    "max_price_range",
+    "min_price_range",
+    "currency",
+    "price",
+    "price_range",
+    "super_seller_package",
+    "super_bonanza_seller_package",
+    "super_premium_seller_package",
+    "initial_co_name",
+    "member_since",
+    "number_mask",
+    "estd",
+    "address",
+    "hide_rfis_rate",
+    "dont_show_send_others",
+    "ifmanu",
+    "ifexporter",
+    "ifservice",
+    "ifdistributor",
+    "ifsupplier",
+    "iftrader",
+    "product_type",
+    "pic_ver",
+    "short_product_spec",
+    "extra_product_spec",
+    "extra_similar_products",
+    "video_path",
+    "product_description",
+    "image_extension",
+    "product_name",
+    "rfis_rate",
+    "std_cert",
+    "state",
+    "extra_catalog_urls",
+    "inq_orig_pref",
+    "filename",
+    "prod_url",
+    "state",
+    "state.keyword",
+    "country_code",
+    "country_code.keyword",
+    "catalog_id",
+    "seller_onboard_url",
+    "made_in_india",
+    "ubona",
+    "video_call",
+    "jetro",
+    "ti_shopping",
+    "margin_percentage",
+    "whatsapp_optin",
+    "in_stock"
+  ],
+  "highlight": {
+    "fields": {
+      "prod_exp": {},
+      "prod_manu": {},
+      "prod_serv": {},
+      "prod_supplier": {},
+      "prod_distributor": {},
+      "prod_trader": {},
+      "keywords": {},
+      "keywords.eng": {},
+      "keywords.comma_as_xxxx": {
+        "fragmenter": "span"
+      },
+      "prod_exp.comma_as_xxxx": {
+        "fragmenter": "span"
+      },
+      "prod_distributor.comma_as_xxxx": {
+        "fragmenter": "span"
+      },
+      "prod_supplier.comma_as_xxxx": {
+        "fragmenter": "span"
+      },
+      "prod_trader.comma_as_xxxx": {
+        "fragmenter": "span"
+      },
+      "prod_imp.comma_as_xxxx": {
+        "fragmenter": "span"
+      },
+      "prod_serv.comma_as_xxxx": {
+        "fragmenter": "span"
+      }
+    }
+  }
+}
+
+
+GET ti_search_logstash_20220419/_search
+{
+  "query": {
+      "wildcard": {
+        "product_name":"a*"
+      }
+  },
+  "_source": ["product_name","product_id"],
+  "from":0,
+  "size":1000
+}
+
+
+
+
+
+GET ti_search_logstash_20220330/_search
+{
+  "query": {
+      "match": {
+        "co_name":"SAFECON LIFE SCIENCES"
+      }
+  },
+  "_source": ["product_name","product_id"],
+  "from":0,
+  "size":1000
+}
+
+
+
+GET ti_search_logstash_20220518/_search
+{
+  "query": {
+    "bool":{
+      "must":[
+        {"match":{"product_id":3736612}},
+        {"match":{"source":"CATALOG"}}
+        ]
+    }
+  }
+}
+
+POST ti_search_logstash_20220518/ti_search_20220518/AYDX189lgbkA9NYclp7H/_update
+{
+  "doc": {  
+        "city" : "Faridabad",
+        "city_id":"191975",
+        "state":"Haryana"
+    }
+}
+
+    search_body = {
+        "query": {
+            "match": {
+                "profile_id": 5529611
+            }
+        },
+         "size": 100
+    }
+
+    update_doc = {
+        "doc": {
+            "city": "Faridabad",
+            "state": "Haryana",
+            "city_id": 191975,
+
+        }
+    }
+
+
+
+
+
+
+
+GET ti_search_logstash_20220404/_search
+{
+  "query": {
+      "match": {
+        "product_id":7249003
+      }
+  }
+}
+
+POST ti_search_logstash_20220404/ti_search_20220404/AX_1auXwgbkA9NYcyv7L/_update
+{
+  "doc": {  
+        "product_name" : "Safetik Powder",
+        "product_name_last_word":"Powder",
+        "keywords":"Safetik Powder",
+        "keywords_exact":[]
+    }
+}
+
+
+
+
+
+
+GET ti_search_logstash_20200320/_search
+{
+  "query": {
+      "match": {
+        "product_id":7500320
+      }
+  }
+}
+
+
+GET ti_search_logstash_20220309/_search
+{
+  "query": {
+      "match": {
+        "profile_id":4141077
+      }
+      
+  },
+  "size":3, 
+  "from":2
+}
+
+
+GET ti_search_logstash_20220219/ti_search_20220219/AX8Sq71xgbkA9NYcjVou/
+
+
+
+POST ti_search_logstash_20220219/ti_search_20220219/AX8Sq71xgbkA9NYcjVou/_update
+{
+  "doc": {  
+        "co_name" : "Gulhan Spare Parts & Defence İnd.Co.",
+        "initial_co_name" : "Gulhan Spare Parts & Defence İnd.Co."
+    }
+}
+
+GET ti_search_logstash_20220313/_search
+{"size":510}
+
+
+GET ti_search_logstash_20220311/_search
+{
+  "query":{
+    "bool":{
+      "must":[
+          {"exists": {"field": "custom_field_data_meta_info" }},
+          {"match":{"product_id":7480584}},
+          {
+          "bool":{
+            "should":[
+                {"exists": {"field": "price"}},
+                {"exists": {"field": "price_range"}}
+              ]            
+          }}
+        ]
+    }
+  },
+  "sort" : [
+    { "generated" : {"order" : "desc"}},
+    "_score"
+  ],
+"_source": ["custom_field_data_meta_info","price","price_range"],
+  "size":50
+}
+
+
+
+
+
+GET ti_search_logstash_20220315/_search
+{
+  "query":{
+    "bool":{
+      "must":[
+          {"exists": {"field": "custom_field_data_meta_info" }},
+          {
+          "bool":{
+            "should":[
+                {"exists": {"field": "price"}},
+                {"exists": {"field": "price_range"}}
+              ]            
+          }}
+        ]
+    }
+  },
+  "aggs":{
+      "uniqs": {
+            "terms": {
+                "field": "profile_id","size":1
+            },
+        "aggs":{
+          "prods":{
+            "terms":{
+              "field": "product_id","size":1
+            }
+          }
+        }
+      }
+  },
+  "sort" : [
+    { "generated" : {"order" : "desc"}},
+    "_score"
+  ],
+"_source": ["co_name","price","price_range","product_name","profile_id","product_id"],
+  "from":0,
+  "size":10
+}
+
+
+
+GET ti_search_logstash_20220315/_search
+{
+  "size": 0, 
+  "aggs": {
+      "data": {
+          "terms":{"field": "profile_id"},
+          "aggs":{
+            "profile_id":{
+              "terms":{"field":"profile_id"}
+             },
+            "co_name":{
+              "terms":{"field":"co_name.keyword"}
+             },
+            "product_id":{
+              "max":{"field":"product_id"}
+             }
+          }
+      }
+    }
+}
+
+
+
+GET ti_search_logstash_20220315/_search
+{
+  "size": 0, 
+  "aggs": {
+      "data": {
+          "terms":{"field": "profile_id"}
+      }
+    }
+}
+
+
+GET ti_search_logstash_20220315/_search
+{
+  "sort" : [
+    { "generated" : {"order" : "desc"}},
+    "_score"
+  ],
+"_source": ["profile_id","co_name", "price","price_range"],
+  "size":5,
+  "aggs":{
+    "profiles":{
+      "terms": {
+        "field": "profile_id",
+        "size": 10
+      }
+    }
+  }
+}
+
+
+
+GET ti_search_logstash_20220319/_search
+{
+  "query":{
+    "bool":{
+      "must":[
+          {"exists": {"field": "custom_field_data_meta_info" }},
+          {
+          "bool":{
+            "should":[
+                {"exists": {"field": "price"}},
+                {"exists": {"field": "price_range"}}
+              ]            
+          }}
+        ]
+    }
+  },
+  "collapse": {
+    "field": "profile_id"         
+  },
+  "sort" : [
+    { "generated" : {"order" : "desc"}},
+    { "price_es" : {"order" : "desc"}}
+  ],
+  "size": 10,
+  "_source": ["profile_id","product_id","co_name","price","price_es","price_range","generated"]
+}
+
+
+
+
+
+
+
+
+
+
+
+

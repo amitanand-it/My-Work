@@ -1,0 +1,41 @@
+
+TERM: Avoid using the term query for text fields.
+
+MATCH: To search text field values, use the match query instead.
+
+RANGE: Returns documents that contain terms within a provided range.
+
+GET /_search
+{
+  "query": {
+    "range": {
+      "age": {
+        "gte": 10,
+        "lte": 20,
+        "boost": 2.0
+      }
+    }
+  }
+}
+
+GET ti_search_logstash_20220530/_search
+{
+  "query": {
+    "range": {
+      "product_id": {
+        "gte":"3585941",
+        "lte": "3585942",
+        "boost": 3
+      }
+    }
+  },
+  "_source": [
+    "product_id",
+    "product_name"
+  ],
+  "size": 20
+}
+
+Note: Range queries on text or keyword fields will not be executed if search.allow_expensive_queries is set to false.
+
+

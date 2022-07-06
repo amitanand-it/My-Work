@@ -37,6 +37,7 @@ c) decorator call orders if multiple decorators have been used
 12. How to use multithreading in python ?
 
 13. what is __slot__ in python ?
+How you can save space using slots while creating millions of objects instead of dictionaries ?
 
 14. Python regex
 a) Difference between match and search ?
@@ -96,5 +97,36 @@ d) What is match object ?
     what is the output of below code ?
     a = 1
     print(++a)
+
+22. What is assert ? 
+
+23. what is DECORATE-SORT-UNDECORATE  (Schwartzian transform) in sorting ?
+
+24. can we sort a dictionary using sort() method   ?  
+    Difference between sort and sorted method
+
+25. How you can create an iterator class ?
+
+26. What is isinstance and issubset method use in python ?
+
+27. what is strict superset ?
+A strict superset has at least one element that does not exist in its subset.
+
+
+28. What is a property decorator in python ?
+
+29. What is the use of total_ordering decorator from functools ?
+
+30. What is !r in string formatting ? 
+
+31. What is Difference between sep and end in print ?
+
+32. What is a hashable ?
+    Is tuple a hashable or not ?
+    An object is hashable if it has a hash value which never changes during its lifetime
+
+33. What is namedtuple ? Its use in python ?
+
+
 
 

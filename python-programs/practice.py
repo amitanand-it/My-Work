@@ -1,10 +1,56 @@
 import sys
+import math
+
+import re
+
+txt = "amit Hello amit Hi amit Ji"
+m = re.finditer(r"amit", txt)
+print(m)
+
+sys.exit()
+
+
+def timeConversion(s):
+    # Write your code here
+    tt, am_pm = s[:-2], s[-2:]
+    hh, mm, ss = tt.split(":")
+
+    if am_pm == 'PM':
+        hh = int(hh)
+        if hh != 12 and hh >= 1:
+            hh += 12
+        return f"{hh}:{mm}:{ss}"
+    
+    if am_pm == 'AM':
+        if hh == "12":
+            hh = '00'
+
+        return f"{hh}:{mm}:{ss}"
+    
+
+s = "12:00:00AM"
+s = "12:00:01AM"
+s = "12:00:00PM"
+s = "11:30:00PM"
+print(timeConversion(s))
+
+
+
+
+# print(sum(x for x in range(6)))
+
+
+sys.exit()
+degree_sign = u'\N{DEGREE SIGN}'
+print(f"{int(math.degrees(math.atan(1)))}{degree_sign}")
+
+
+
 import numpy
 a = numpy.array([1,2,3,4,5][::-1], float)
 print(a)
 
 
-sys.exit()
 
 class A():
 
