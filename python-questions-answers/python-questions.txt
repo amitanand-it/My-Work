@@ -1,4 +1,5 @@
 1. How will you make a class immutable ?
+
 a) Initalized only define variables 
 b) their values should not be changed 
 
@@ -127,6 +128,6 @@ A strict superset has at least one element that does not exist in its subset.
 
 33. What is namedtuple ? Its use in python ?
 
-
+34. What are metaclasses ?
 
 

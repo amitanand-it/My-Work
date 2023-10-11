@@ -1,6 +1,7 @@
 # Example
 import sys
 class recursion_depth:
+
     def __init__(self, limit):
         self.limit = limit
         self.default_limit = sys.getrecursionlimit()
