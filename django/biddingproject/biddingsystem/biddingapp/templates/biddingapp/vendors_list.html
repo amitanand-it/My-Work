@@ -1,0 +1,35 @@
+{% extends "biddingapp/base.html" %}
+{% block content %}
+
+
+
+<div class="container">
+    <h1>Vendors List</h1>
+    <!-- Item List -->
+    <table>
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Contact Person</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Display items dynamically from your backend -->
+            {% for vendor in vendors_list %}
+            <tr>
+                <td>{{vendor.company_name}}</td>
+                <td>{{vendor.contact_person}}</td>
+                <td>{{vendor.email}}</td>
+                <td>{{vendor.phone}}</td>
+            </tr>
+            {% empty %}
+            <tr> <td> NO RECORDS FOUND </td> </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+<br> <br> 
+{% endblock content %}

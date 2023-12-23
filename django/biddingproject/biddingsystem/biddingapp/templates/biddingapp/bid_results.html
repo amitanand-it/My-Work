@@ -1,0 +1,68 @@
+{% extends "biddingapp/base.html" %}
+
+{% block content %}
+
+<!-- Bid Allotment Page -->
+<div class="container" >
+    
+
+
+    <div class="bid-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item description</th>
+                    <th>Starting Bid Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for item  in items_list %}
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.starting_bid}}</td>
+                    <td><a href="/bid-allotment/?item_id={{item.id}}">Allot Bid</a></td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h1>Bid Allotment Results</h1>
+    {% for data in winners_list %}
+    <div style="display: flex;">
+
+        <div class="allotment-details">
+            <h2>Winning Bid Details - {{ data.item.name }}</h2>
+            <p>Bidder: {{ data.vendor.contact_person }}</p>
+            <p>Amount: ${{ data.bid_amount }}</p>
+            <p>Allotment Time: {{ data.item.created_at }}</p>
+        </div>
+
+        <div class="successful-bidder">
+            <h2>Successful Bidder Information</h2>
+            <p>Name: {{ data.vendor.contact_person }}</p>
+            <p>Email: {{ data.vendor.email }}</p>
+            <p>Contact Number: {{ data.vendor.phone }}</p>
+            <p>Company Name: {{ data.vendor.company_name }}</p>
+        </div>
+
+    </div>
+    {% empty %}
+
+    <div class="allotment-details">
+        <p>No bids have been allotted yet.</p>
+        <p>Press the "Allot Bid" button below to allot bids.</p>
+    </div>
+
+    {% endfor %}
+
+
+</div>
+<br> <br> <br>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "biddingapp/base.html" %}
+{% block content %}
+
+<section class="container">
+
+<!-- Registration Form -->
+    <h2>Vendor Registration</h2>
+    <form action="/register-vendor/" method="post">
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" required>
+
+        <label for="contactPerson">Contact Person:</label>
+        <input type="text" id="contactPerson" name="contactPerson" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <button type="submit">Register</button>
+    </form>
+
+
+<br> <br> <br>
+</section>
+
+{% endblock content %}

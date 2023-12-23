@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'biddingapp/style.css' %}">
+    <script src="{% static 'biddingapp/script.js' %}" defer></script>
+    <title>Bidding System</title>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header>
+    <nav>
+        <div class="container">
+            <div class="user-details">
+            {% if login %}
+                <span class="welcome-message">
+                    Welcome <b>{{ vendor_details.username }}</b>
+                    | {{ vendor_details.email }}
+                    | {{ vendor_details.company_name }}
+                </span>
+                <a href="/logout/" class="logout-button">Logout</a>
+            {% else %}
+                <a href="/login/" class="logout-button">Login</a>
+            {% endif %}
+            </div>
+
+            <h1>Bidding System</h1>
+
+                {% if admin %}
+                    {% include "biddingapp/adminbase.html" %}
+                {% else %}
+                    {% include "biddingapp/vendorbase.html" %}
+                {% endif %}
+
+        </div>
+    </nav>
+</header>
+
+{% block content %}
+{% endblock content %}
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2023 Bidding System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

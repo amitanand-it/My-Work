@@ -1,0 +1,92 @@
+{% extends "biddingapp/base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1>Bid Comparison</h1>
+
+    <div class="bid-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Bidder</th>
+                    <th>Amount</th>
+                    <th>Time</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for data  in bids_list %}
+                {% with data.details as details %}
+                <tr>
+                    <td>{{data.item.name}}</td>
+                    <td>{{data.vendor.contact_person}} 
+                        {% if data.possible_winner %}
+                            (Possible Winner)
+                        {% endif %}
+                    </td>
+                    <td>{{data.bid_amount}}</td>
+                    <td>{{data.created_at}}</td>
+                    <td><a href="#" onclick="openPopup('{{details}}')">View Details</a></td>
+                </tr>
+                {% endwith %}
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<br> <br> <br>
+<!-- Popup Container -->
+<div id="popupContainer" class="popup-container">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2 id="popupTitle">Bidder Details</h2>
+        <p id="popupDetails">Details will be displayed here.</p>
+    </div>
+</div>
+<script>
+    function openPopup(details) {
+        document.getElementById("popupTitle").innerText = "Bidder Details";
+        document.getElementById("popupDetails").innerText = details;
+        document.getElementById("popupContainer").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popupContainer").style.display = "none";
+    }
+</script>
+
+<style>
+    .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+</style>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "biddingapp/base.html" %}
+{% block content %}
+
+<section class="container">
+<div class="error-container">
+    <h1>Oops! Something went wrong.</h1>
+    <p>We're sorry, but it seems there was an error processing your request.</p>
+    <p><b>{{error}}</b></p>
+    <p>Please <button id="goBackButton" class="goback-button">Go Back</button></p>
+    <!-- <p>Please try again or <a href="/support/">contact support</a> if the problem persists.</p> -->
+</div>
+</section>
+
+
+
+{% endblock content %}
